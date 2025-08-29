@@ -8,7 +8,7 @@ export default function header() {
           <div class="logo">
             <a class="navbar-brand" href="index.html">
               <i class="fa-solid fa-scale-balanced"></i>
-              <span>OnLaw</span>
+              <span> OnLaw</span>
             </a>
           </div>
           <button

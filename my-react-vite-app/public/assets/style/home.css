@@ -1,5 +1,5 @@
 * {
-  font-family: "Old Standard TT", serif;
+  font-family: "Prata", serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -267,7 +267,7 @@ body {
   margin-top: 80px;
   padding-top: 60px;
   background: #e9e8d4;
-  /* height: 100vh; */
+  height: 100vh;
   /* background-image: linear-gradient(to right, #fff, rgba(255, 255, 255, 0.92)),
     url(../img/banner.jpg); */
   background-repeat: no-repeat, no-repeat, no-repeat;
@@ -892,7 +892,7 @@ width: 100%;
 .footer {
   margin-top: 100px;
   padding-top: 50px;
-  background-color: #f7f9fc;
+  background-color: #e9e8d4;
 }
 .footer .items {
   padding-bottom: 50px;
@@ -911,10 +911,10 @@ width: 100%;
   font-size: 15px;
 }
 .footer .footer-items a:hover {
-  color: #dc4f72;
+  color: #8a3433;
 }
 .footer .footer-items .footer-form {
-  background-color: #fff;
+  background-color: #f5f4e6;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.125);
   padding: 30px;
   border-radius: 5px;
@@ -933,7 +933,7 @@ width: 100%;
 .footer .footer-items .footer-form input {
   width: 82%;
   border: none;
-  background-color: #f7f9fc;
+  background-color: #f5f4e6;
   padding: 0 14px;
   font-weight: 700;
   border-radius: 5px;
@@ -960,5 +960,5 @@ width: 100%;
 }
 .footer .copyright .content a:hover,
 .footer .copyright .icon i:hover {
-  color: #dc4f72;
+  color: #8a3433;
 }
