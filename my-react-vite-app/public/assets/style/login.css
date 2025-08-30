@@ -1,0 +1,77 @@
+.login-form {
+  background-image: url("../img/bg-login.png");
+  background-size: cover;
+  height: 100vh;
+}
+.form-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(37px);
+  -webkit-backdrop-filter: blur(37px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0px 0px rgba(255, 255, 255, 0);
+  border-radius: 10px;
+  padding: 50px;
+  width: 600px;
+  height: 400px;
+}
+
+.form-container .button2 {
+    margin-top: 20px;
+}
+
+.login-content input {
+  margin-top: 20px;
+  padding: 15px;
+  width: 500px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(37px);
+  -webkit-backdrop-filter: blur(37px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0px 0px rgba(255, 255, 255, 0);
+}
+
+.login-content input::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8),
+    transparent,
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+.login-content input::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+}
+
+.login-content input:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+}

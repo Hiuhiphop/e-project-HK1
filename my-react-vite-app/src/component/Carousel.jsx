@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default function Carousel() {
   return (
@@ -14,9 +14,9 @@ export default function Carousel() {
               connects you with experienced lawyers to guide you every step of
               the way.
             </p>
-            <a href="about.html"
-              ><button class="button1">get started</button></a
-            >
+            <a href="about.html">
+              <button class="button1">get started</button>
+            </a>
           </div>
         </div>
         <div class="carousel-right">
@@ -24,5 +24,5 @@ export default function Carousel() {
         </div>
       </div>
     </section>
-  )
+  );
 }
