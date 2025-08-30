@@ -1,5 +1,5 @@
 * {
-  font-family: "Old Standard TT", serif;
+  font-family: "Prata", serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -73,7 +73,7 @@ body {
   padding: 0px 30px;
   text-transform: uppercase;
   background-color: #8a3433;
-  border: 1px solid;
+  border: 1px solid #8a3433;
   cursor: pointer;
   color: #fff;
   border-radius: 5px;
@@ -173,13 +173,14 @@ body {
   height: 100%;
 }
 .sticky {
-  box-shadow: 0 3px 9px rgb(0 0 0 / 5%);
-  transition: all 0.5s;
-  padding: 5px 0;
-  -webkit-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  -ms-transition: all 0.5s;
-  -o-transition: all 0.5s;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(37px);
+  -webkit-backdrop-filter: blur(37px);  
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0px 0px rgba(255, 255, 255, 0);
 }
 .header .navbar {
   display: flex;
@@ -267,7 +268,7 @@ body {
   margin-top: 80px;
   padding-top: 60px;
   background: #e9e8d4;
-  /* height: 100vh; */
+  height: 100vh;
   /* background-image: linear-gradient(to right, #fff, rgba(255, 255, 255, 0.92)),
     url(../img/banner.jpg); */
   background-repeat: no-repeat, no-repeat, no-repeat;
@@ -292,7 +293,7 @@ body {
   max-width: 450px;
 }
 .carousel-right img {
-width: 100%;
+  width: 100%;
 }
 
 /* why choose us */
@@ -367,7 +368,7 @@ width: 100%;
   margin-top: 100px;
   padding-top: 80px;
   padding-bottom: 80px;
-  background-color: #f7f9fc;
+  background-color: #e9e8d4;
 }
 .about .about-content {
   display: flex;
@@ -420,7 +421,7 @@ width: 100%;
   -o-transition: all 0.4 ease;
 }
 .about .about-statistic .statisctic-items span {
-  color: #dc4f72;
+  color: #8a3433;
 }
 
 /* carousel 2 */
@@ -892,7 +893,7 @@ width: 100%;
 .footer {
   margin-top: 100px;
   padding-top: 50px;
-  background-color: #f7f9fc;
+  background-color: #e9e8d4;
 }
 .footer .items {
   padding-bottom: 50px;
@@ -911,10 +912,10 @@ width: 100%;
   font-size: 15px;
 }
 .footer .footer-items a:hover {
-  color: #dc4f72;
+  color: #8a3433;
 }
 .footer .footer-items .footer-form {
-  background-color: #fff;
+  background-color: #f5f4e6;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.125);
   padding: 30px;
   border-radius: 5px;
@@ -933,7 +934,7 @@ width: 100%;
 .footer .footer-items .footer-form input {
   width: 82%;
   border: none;
-  background-color: #f7f9fc;
+  background-color: #f5f4e6;
   padding: 0 14px;
   font-weight: 700;
   border-radius: 5px;
@@ -960,5 +961,5 @@ width: 100%;
 }
 .footer .copyright .content a:hover,
 .footer .copyright .icon i:hover {
-  color: #dc4f72;
+  color: #8a3433;
 }
