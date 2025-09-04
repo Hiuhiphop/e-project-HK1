@@ -1,0 +1,185 @@
+/* faq */
+.faq {
+  margin-top: 100px;
+  padding: 80px 0;
+  background-color: #e9e8d4;
+}
+.faq .content p {
+  margin: 0 250px;
+}
+.faq .items {
+  margin-top: 50px;
+}
+.faq .faq-left {
+  width: 40%;
+  position: relative;
+}
+.faq .faq-image {
+  position: sticky;
+  top: 90px;
+}
+.faq .faq-left img {
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+}
+.faq .faq-left img:hover {
+  transform: translateY(-10px);
+  -webkit-transform: translateY(-10px);
+  -moz-transform: translateY(-10px);
+  -ms-transform: translateY(-10px);
+  -o-transform: translateY(-10px);
+}
+.faq .faq-right {
+  width: 57%;
+}
+.faq .faq-right .accordion-menu {
+  display: inline-block;
+  position: relative;
+}
+.faq .faq-right h2 {
+  font-size: 20px;
+  line-height: 34px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  display: block;
+  margin: 0;
+  cursor: pointer;
+  color: #2c3038;
+}
+.faq .faq-right p {
+  color: rgba(48, 69, 92, 0.8);
+  font-size: 15px;
+  line-height: 26px;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  max-height: 800px;
+  opacity: 1;
+  transform: translate(0, 0);
+  margin-top: 14px;
+  z-index: 2;
+  -webkit-transform: translate(0, 0);
+  -moz-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+}
+
+.faq .faq-right ul li {
+  position: relative;
+  padding: 20px;
+  background-color: #f5f4e6;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+}
+.faq .faq-right ul li .arrow {
+  position: absolute;
+  transform: translate(-28px, -3px);
+  margin-top: 16px;
+  right: 0;
+  -webkit-transform: translate(-28px, -3px);
+  -moz-transform: translate(-28px, -3px);
+  -ms-transform: translate(-28px, -3px);
+  -o-transform: translate(-28px, -3px);
+}
+.faq .faq-right ul li .arrow:before,
+.faq .faq-right ul li .arrow:after {
+  content: "";
+  position: absolute;
+  background-color: #2c3038;
+  width: 3px;
+  height: 9px;
+}
+.faq .faq-right ul li .arrow:before {
+  transform: translate(-2px, 0) rotate(45deg);
+}
+.faq .faq-right ul li .arrow:after {
+  transform: translate(2px, 0) rotate(-45deg);
+}
+.faq .faq-right ul li input[type="checkbox"] {
+  position: absolute;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+}
+.faq .faq-right ul li input[type="checkbox"]:checked ~ p {
+  margin-top: 0;
+  max-height: 0;
+  opacity: 0;
+  transform: translate(0, 50%);
+}
+.faq .faq-right ul li input[type="checkbox"]:checked ~ .arrow:before {
+  transform: translate(2px, 0) rotate(45deg);
+  -webkit-transform: translate(2px, 0) rotate(45deg);
+  -moz-transform: translate(2px, 0) rotate(45deg);
+  -ms-transform: translate(2px, 0) rotate(45deg);
+  -o-transform: translate(2px, 0) rotate(45deg);
+}
+.faq .faq-right ul li input[type="checkbox"]:checked ~ .arrow:after {
+  transform: translate(-2px, 0) rotate(-45deg);
+}
+.faq .faq-right .transition,
+.faq .faq-right p,
+.faq .faq-right ul li .arrow:before,
+.faq .faq-right ul li .arrow:after {
+  transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+}
+.faq .faq-right .flipIn,
+.faq .faq-right h1,
+.faq .faq-right ul li {
+  animation: flipdown 0.5s ease both;
+  -webkit-animation: flipdown 0.5s ease both;
+}
+.faq .faq-right .no-select,
+.faq .faq-right h2 {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+@keyframes flipdown {
+  0% {
+    opacity: 0;
+    transform-origin: top center;
+    transform: rotateX(-90deg);
+    -webkit-transform: rotateX(-90deg);
+    -moz-transform: rotateX(-90deg);
+    -ms-transform: rotateX(-90deg);
+    -o-transform: rotateX(-90deg);
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  80% {
+    transform: rotateX(8deg);
+  }
+
+  83% {
+    transform: rotateX(6deg);
+  }
+
+  92% {
+    transform: rotateX(-3deg);
+  }
+
+  100% {
+    transform-origin: top center;
+    transform: rotateX(0deg);
+  }
+}
