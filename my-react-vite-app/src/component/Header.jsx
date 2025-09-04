@@ -21,7 +21,7 @@ export default function Header() {
     <header ref={headerRef} id="header-home" className="header">
       <div className="container">
         <nav className="navbar navbar-expand-lg navbar-primary">
-          <div className="logo">
+          <div className="logo" style={{cursor: "pointer"}}>
             <a className="navbar-brand" onClick={() => {
               navigate("/")
             }}>
@@ -44,11 +44,13 @@ export default function Header() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center justify-content-end w100">
-              <li className="nav-item">
+              <li className="nav-item" style={{cursor: "pointer"}}>
                 <a
                   className="nav-link text-color1"
                   aria-current="page"
-                  href="index.html"
+                  onClick={() => {
+                    navigate('/')
+                  }}
                 >
                   Home
                 </a>
