@@ -13,18 +13,18 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login logic here
+    // Handle register logic here
     alert(`Email: ${email}\nPassword: ${password}`);
   };
   return (
     <>
-      <div className="login-form">
+      <div className="register-form">
         <form
           className="form-container container animate__animated animate__fadeIn"
           onSubmit={handleSubmit}
         >
-          <h2 className="login-title">Register</h2>
-          <div className="login-content">
+          <h2 className="register-title">Register</h2>
+          <div className="register-content">
             <input
               placeholder="Email"
               type="email"
@@ -33,7 +33,7 @@ export default function Register() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="login-content">
+          <div className="register-content">
             <input
               placeholder="Password"
               type="password"
@@ -42,7 +42,7 @@ export default function Register() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="login-content">
+          <div className="register-content">
             <input
               placeholder="Full name"
               value={fullName}
@@ -50,7 +50,7 @@ export default function Register() {
               onChange={(e) => setFullName(e.target.value)}
             />
           </div>
-          <div className="login-content">
+          <div className="register-content">
             <input
               placeholder="Address"
               value={address}
@@ -58,7 +58,7 @@ export default function Register() {
               onChange={(e) => setAddress(e.target.value)}
             />
           </div>
-          <div className="login-content">
+          <div className="register-content">
             <input
               placeholder="Phone number"
               value={phoneNum}
