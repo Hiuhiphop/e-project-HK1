@@ -12,9 +12,9 @@ const LoginPage = () => {
   const onFinish = async (values) => {
     try {
       const response = await axios.post('http://localhost:8000/api/auth/login', {
-        email: values.email,
-        password: values.password,
-      });
+  email: values.email,
+  password: values.password,
+});
 
       // Lưu token và user info vào Local Storage
       localStorage.setItem('token', response.data.token);

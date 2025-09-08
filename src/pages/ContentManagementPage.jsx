@@ -5,11 +5,6 @@ import axios from 'axios';
 
 const { TextArea } = Input;
 
-const mockAnnouncements = [
-  { id: 1, title: 'Thông báo bảo trì hệ thống', content: 'Hệ thống sẽ bảo trì vào 23h ngày 26/10.', createdAt: '2025-10-25' },
-  { id: 2, title: 'Chính sách mới về phí tư vấn', content: 'Áp dụng từ ngày 01/11/2025.', createdAt: '2025-10-24' },
-];
-
 const ContentManagementPage = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -17,12 +12,20 @@ const ContentManagementPage = () => {
   const [editingItem, setEditingItem] = useState(null);
   const [form] = Form.useForm();
 
-  const fetchAnnouncements = () => {
+  const fetchAnnouncements = async () => {
     setLoading(true);
-    setTimeout(() => {
-      setAnnouncements(mockAnnouncements);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:8000/api/admin/announcements', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setAnnouncements(response.data.data);
+    } catch (error) {
+      message.error('Không thể tải dữ liệu thông báo.');
+      console.error(error);
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   useEffect(() => {
@@ -35,38 +38,52 @@ const ContentManagementPage = () => {
     setIsModalVisible(true);
   };
 
-  const handleEdit = (record) => {
-    setEditingItem(record);
-    form.setFieldsValue(record);
+  const handleEdit = (item) => {
+    setEditingItem(item);
+    form.setFieldsValue(item);
     setIsModalVisible(true);
   };
 
-  const handleDelete = (id) => {
-    setAnnouncements(announcements.filter(item => item.id !== id));
-    message.success('Xóa thông báo thành công (giả lập)!');
+  const handleDelete = async (id) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.delete(`http://localhost:8000/api/admin/announcements/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      message.success('Xóa thông báo thành công!');
+      fetchAnnouncements(); // Tải lại danh sách
+    } catch (error) {
+      message.error('Không thể xóa thông báo.');
+      console.error(error);
+    }
   };
 
-  const handleOk = () => {
-    form.validateFields().then(values => {
+  const handleOk = async () => {
+    try {
+      const values = await form.validateFields();
+      setLoading(true);
+      const token = localStorage.getItem('token');
       if (editingItem) {
-        // Giả lập cập nhật
-        const updatedList = announcements.map(item =>
-          item.id === editingItem.id ? { ...item, ...values } : item
-        );
-        setAnnouncements(updatedList);
-        message.success('Cập nhật thông báo thành công (giả lập)!');
+        // Cập nhật thông báo hiện có
+        await axios.put(`http://localhost:8000/api/admin/announcements/${editingItem.id}`, values, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        message.success('Cập nhật thông báo thành công!');
       } else {
-        // Giả lập thêm mới
-        const newItem = {
-          ...values,
-          id: announcements.length + 1,
-          createdAt: new Date().toISOString().slice(0, 10),
-        };
-        setAnnouncements([...announcements, newItem]);
-        message.success('Thêm thông báo thành công (giả lập)!');
+        // Thêm thông báo mới
+        await axios.post('http://localhost:8000/api/admin/announcements', values, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        message.success('Thêm thông báo mới thành công!');
       }
       setIsModalVisible(false);
-    });
+      fetchAnnouncements(); // Tải lại danh sách
+    } catch (error) {
+      message.error('Thực hiện thất bại. Vui lòng thử lại.');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const columns = [

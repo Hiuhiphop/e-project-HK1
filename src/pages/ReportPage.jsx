@@ -1,59 +1,82 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Col, Row, Typography, Statistic, message } from 'antd';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, Sector
 } from 'recharts';
 import { UserOutlined, ClockCircleOutlined, SolutionOutlined } from '@ant-design/icons';
+import axios from 'axios';
 
 const { Title } = Typography;
 
-// Dữ liệu giả lập
-const lawyerData = [
-  { name: 'Luật sư A', 'Số cuộc hẹn': 15, 'Đánh giá': 4.8 },
-  { name: 'Luật sư B', 'Số cuộc hẹn': 12, 'Đánh giá': 4.5 },
-  { name: 'Luật sư C', 'Số cuộc hẹn': 10, 'Đánh giá': 4.9 },
-  { name: 'Luật sư D', 'Số cuộc hẹn': 8, 'Đánh giá': 4.2 },
-  { name: 'Luật sư E', 'Số cuộc hẹn': 5, 'Đánh giá': 4.1 },
-];
-
-const engagementData = [
-  { name: 'Đã xác nhận', value: 300 },
-  { name: 'Chờ xử lý', value: 150 },
-  { name: 'Đã hủy', value: 50 },
-];
-
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
-
 const ReportPage = () => {
+  const [lawyerData, setLawyerData] = useState([]);
+  const [engagementData, setEngagementData] = useState([]);
+  const [totalAppointments, setTotalAppointments] = useState(0);
+  const [totalLawyers, setTotalLawyers] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
+
+  const fetchReportData = async () => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:8000/api/admin/reports', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      const { lawyerStats, engagementStats, totalAppointments, totalLawyers } = response.data;
+      
+      setLawyerData(lawyerStats);
+      setEngagementData(engagementStats);
+      setTotalAppointments(totalAppointments);
+      setTotalLawyers(totalLawyers);
+
+    } catch (error) {
+      message.error('Không thể tải dữ liệu báo cáo.');
+      console.error('Lỗi khi tải dữ liệu báo cáo:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchReportData();
+  }, []);
+
   return (
     <div>
-      <Title level={2}>Báo cáo & Phân tích</Title>
-
-      <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
+      <Title level={2}>Báo cáo & Thống kê</Title>
+      
+      <Row gutter={[16, 16]}>
         <Col span={8}>
-          <Card>
-            <Statistic
-              title="Tổng số Luật sư"
-              value={55}
-              prefix={<UserOutlined />}
-            />
-          </Card>
-        </Col>
-        <Col span={8}>
-          <Card>
-            <Statistic
-              title="Tổng số Khách hàng"
-              value={1200}
-              prefix={<UserOutlined />}
-            />
-          </Card>
-        </Col>
-        <Col span={8}>
-          <Card>
+          <Card bordered={false}>
             <Statistic
               title="Tổng số Cuộc hẹn"
-              value={480}
+              value={totalAppointments}
+              valueStyle={{ color: '#3f8600' }}
+              prefix={<SolutionOutlined />}
+            />
+          </Card>
+        </Col>
+        <Col span={8}>
+          <Card bordered={false}>
+            <Statistic
+              title="Tổng số Luật sư"
+              value={totalLawyers}
+              valueStyle={{ color: '#cf1322' }}
+              prefix={<UserOutlined />}
+            />
+          </Card>
+        </Col>
+        <Col span={8}>
+          <Card bordered={false}>
+            <Statistic
+              title="Cuộc hẹn trung bình/tháng"
+              value={totalAppointments > 0 ? (totalAppointments / 1).toFixed(1) : 0}
+              precision={2}
+              valueStyle={{ color: '#008c8c' }}
               prefix={<ClockCircleOutlined />}
             />
           </Card>

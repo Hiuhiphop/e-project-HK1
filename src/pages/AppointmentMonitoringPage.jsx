@@ -1,46 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Table, message, Tag, Space, Input, Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-
-const mockAppointments = [
-  { 
-    id: 1, 
-    user: { id: 101, name: 'Nguyễn Văn A' }, 
-    lawyer: { id: 201, name: 'Trần Thị B' }, 
-    appointment_date: '2025-10-26 10:00', 
-    status: 'pending', 
-    notes: 'Tư vấn về luật dân sự' 
-  },
-  { 
-    id: 2, 
-    user: { id: 102, name: 'Phạm Thị C' }, 
-    lawyer: { id: 202, name: 'Lê Văn D' }, 
-    appointment_date: '2025-10-27 14:30', 
-    status: 'confirmed', 
-    notes: 'Thủ tục ly hôn' 
-  },
-  { 
-    id: 3, 
-    user: { id: 103, name: 'Vũ Văn E' }, 
-    lawyer: { id: 201, name: 'Trần Thị B' }, 
-    appointment_date: '2025-10-28 09:00', 
-    status: 'canceled', 
-    notes: 'Không đến được' 
-  },
-];
+import axios from 'axios';
 
 const AppointmentMonitoringPage = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
-  const fetchAppointments = () => {
+  const fetchAppointments = async () => {
     setLoading(true);
-    // Giả lập thời gian chờ của API
-    setTimeout(() => {
-      setAppointments(mockAppointments);
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        message.error('Bạn chưa đăng nhập.');
+        return;
+      }
+      const response = await axios.get('http://localhost:8000/api/admin/appointments', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setAppointments(response.data.data); // Thay dữ liệu giả lập bằng dữ liệu thực
+    } catch (error) {
+      message.error('Không thể lấy dữ liệu cuộc hẹn.');
+      console.error('Lỗi khi tải dữ liệu cuộc hẹn:', error);
+    } finally {
       setLoading(false);
-      message.success('Đã tải dữ liệu cuộc hẹn (giả lập).');
-    }, 1000);
+    }
   };
 
   useEffect(() => {
@@ -85,16 +70,21 @@ const AppointmentMonitoringPage = () => {
   return (
     <div>
       <h2>Giám sát Cuộc hẹn</h2>
-      <Input 
-        placeholder="Tìm kiếm cuộc hẹn..." 
-        prefix={<SearchOutlined />} 
-        style={{ width: 300, marginBottom: 16 }} 
+      <Input
+        placeholder="Tìm kiếm cuộc hẹn..."
+        prefix={<SearchOutlined />}
+        style={{ marginBottom: 16, width: 300 }}
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
       />
-      <Table 
-        columns={columns} 
-        dataSource={appointments} 
+      <Table
+        columns={columns}
+        dataSource={appointments.filter(item => 
+          item.user.name.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.lawyer.name.toLowerCase().includes(searchText.toLowerCase())
+        )}
         loading={loading}
-        rowKey="id" 
+        rowKey="id"
       />
     </div>
   );
