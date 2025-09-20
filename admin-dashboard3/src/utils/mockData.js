@@ -1,39 +1,40 @@
+// File: src/utils/mockData.js
+
 export const mockLawyers = [
-  { id: 1, name: 'Nguyễn Văn A', specialty: 'Hình sự', experience: '5 năm', status: 'Chờ duyệt' },
-  { id: 2, name: 'Trần Thị B', specialty: 'Dân sự', experience: '8 năm', status: 'Đã duyệt' },
-  { id: 3, name: 'Lê Văn C', specialty: 'Lao động', experience: '3 năm', status: 'Đã hủy' },
+  { id: 1, name: 'John Doe', username: 'John Doe', specialty: 'Criminal', experience: 'Five years', status: 'Approved' },
+  { id: 2, name: 'Jane Smith', specialty: 'Civil', experience: 'Eight years', status: 'Approved' },
+  { id: 3, name: 'Peter Jones', specialty: 'Labor', experience: 'Three years', status: 'Pending' },
 ];
 
 export const mockClients = [
-  { id: 1, name: 'Lê Văn C', email: 'levanc@example.com', status: 'Active', phone: '0123456789' },
-  { id: 2, name: 'Phạm Thị D', email: 'phamthi@example.com', status: 'Inactive', phone: '0987654321' },
-  { id: 3, name: 'Hoàng Văn E', email: 'hoangvan@example.com', status: 'Active', phone: '0111222333' },
-  { id: 4, name: 'Nguyễn Thị F', email: 'nguyenthif@example.com', status: 'Pending', phone: '0444555666' },
+  { id: 1, name: 'Mike Johnson', email: 'mikej@example.com', status: 'Active', phone: '0123456789' },
+  { id: 2, name: 'Emily Davis', email: 'emilyd@example.com', status: 'Inactive', phone: '0987654321' },
+  { id: 3, name: 'Chris Evans', email: 'chrise@example.com', status: 'Active', phone: '0111222333' },
+  { id: 4, name: 'Sarah Miller', email: 'sarahm@example.com', status: 'Pending', phone: '0444555666' },
 ];
 
 export const mockAppointments = [
-  { id: 1, lawyerId: 1, lawyer: 'Nguyễn Văn A', clientId: 1, client: 'Lê Văn C', status: 'Chờ duyệt', date: '2025-09-20' },
-  { id: 2, lawyerId: 2, lawyer: 'Trần Thị B', clientId: 2, client: 'Phạm Thị D', status: 'Đã xác nhận', date: '2025-09-21' },
-  { id: 3, lawyerId: 1, lawyer: 'Nguyễn Văn A', clientId: 3, client: 'Hoàng Văn E', status: 'Đã hủy', date: '2025-09-22' },
-  { id: 4, lawyerId: 2, lawyer: 'Trần Thị B', clientId: 4, client: 'Nguyễn Thị F', status: 'Đã xác nhận', date: '2025-09-23' },
+  { id: 1, lawyerId: 1, lawyer: 'John Doe', clientId: 1, client: 'Mike Johnson', status: 'Pending', date: '2025-09-20', time: '10:00 AM', note: 'Initial consultation' },
+  { id: 2, lawyerId: 2, lawyer: 'Jane Smith', clientId: 2, client: 'Emily Davis', status: 'Confirmed', date: '2025-09-21', time: '02:30 PM', note: 'Follow-up' },
+  { id: 3, lawyerId: 1, lawyer: 'John Doe', clientId: 3, client: 'Chris Evans', status: 'Cancelled', date: '2025-09-22', time: '09:00 AM', note: 'Rescheduled' },
+  { id: 4, lawyerId: 2, lawyer: 'Jane Smith', clientId: 4, client: 'Sarah Miller', status: 'Confirmed', date: '2025-09-23', time: '11:15 AM', note: 'New client' },
 ];
 
 export const mockNotifications = [
-  { id: 1, title: 'Thông báo mới', content: 'Hệ thống sẽ bảo trì vào 23h đêm nay' },
-  { id: 2, title: 'Tin tức quan trọng', content: 'Dự thảo luật mới về...'},
+  { id: 1, title: 'New Notification', content: 'The system will be under maintenance at 11 PM tonight' },
+  { id: 2, title: 'Important News', content: 'Draft law on...' },
 ];
 
 export const mockReports = {
   lawyerActivity: [
-    { name: 'Nguyễn Văn A', value: 50 },
-    { name: 'Trần Thị B', value: 80 },
-    { name: 'Lê Văn C', value: 30 },
+    { name: 'John Doe', value: 50 },
+    { name: 'Jane Smith', value: 80 },
+    { name: 'Peter Jones', value: 30 },
   ],
   clientEngagement: [
-    { name: 'Khách hàng mới', value: 120 },
-    { name: 'Khách hàng cũ', value: 250 },
+    { name: 'New Clients', value: 120 },
+    { name: 'Returning Clients', value: 250 },
   ],
-  // Đã thêm đối tượng này để giải quyết lỗi
   appointmentStats: {
     total: 4,
     confirmed: 2,

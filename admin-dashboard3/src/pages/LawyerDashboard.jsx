@@ -1,110 +1,82 @@
+// File: src/pages/LawyerDashboard.jsx
+
 import React, { useState, useEffect } from 'react';
-import { Card, Row, Col, Space, Typography } from 'antd';
-import { Pie } from '@ant-design/plots';
-import { mockLawyers, mockAppointments } from '../utils/mockData';
+import { Card, Row, Col, Typography, Space } from 'antd';
+import { mockAppointments, mockLawyers } from '../utils/mockData';
 import { getLoggedInUser } from '../utils/auth';
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 const { Title } = Typography;
 
 const LawyerDashboard = () => {
-  const [lawyerData, setLawyerData] = useState(null);
-  const [appointmentsData, setAppointmentsData] = useState([]);
+  const [appointmentData, setAppointmentData] = useState([]);
+  const [personalInfo, setPersonalInfo] = useState(null);
   const loggedInUser = getLoggedInUser();
 
+  // Logic đã được di chuyển vào bên trong useEffect
+  // và chỉ chạy khi username của user thay đổi
   useEffect(() => {
-   
     const currentLawyer = mockLawyers.find(l => l.name === loggedInUser?.username);
-    const myAppointments = mockAppointments.filter(app => app.lawyerId === currentLawyer?.id);
-
+    
     if (currentLawyer) {
-      setLawyerData(currentLawyer);
-      setAppointmentsData(myAppointments);
+      setPersonalInfo(currentLawyer);
+      const myAppointments = mockAppointments.filter(app => app.lawyerId === currentLawyer.id);
+      
+      const confirmedCount = myAppointments.filter(app => app.status === 'Confirmed').length;
+      const pendingCount = myAppointments.filter(app => app.status === 'Pending').length;
+      const cancelledCount = myAppointments.filter(app => app.status === 'Cancelled').length;
+      
+      setAppointmentData([
+        { name: 'Confirmed', value: confirmedCount },
+        { name: 'Pending', value: pendingCount },
+        { name: 'Cancelled', value: cancelledCount },
+      ]);
     }
-  }, [loggedInUser]);
+  }, [loggedInUser?.username]); // Chỉ phụ thuộc vào username (một giá trị cố định)
 
-  const appointmentStatusData = appointmentsData.reduce((acc, curr) => {
-    const status = curr.status;
-    acc[status] = (acc[status] || 0) + 1;
-    return acc;
-  }, {});
-
-  const pieData = Object.keys(appointmentStatusData).map(key => ({
-    type: key,
-    value: appointmentStatusData[key],
-  }));
-
-  const pieConfig = {
-    appendPadding: 10,
-    data: pieData,
-    angleField: 'value',
-    colorField: 'type',
-    radius: 1,
-    innerRadius: 0.64,
-    meta: {
-      value: {
-        formatter: (v) => `${v} Appointments`,
-      },
-    },
-    label: {
-      type: 'outer',
-      style: {
-        fontSize: 14,
-        textAlign: 'center',
-      },
-    },
-    interactions: [{ type: 'element-active' }],
-    statistic: {
-      title: false,
-      content: {
-        style: {
-          whiteSpace: 'pre-wrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-        },
-        
-        formatter: () => `Total\n${appointmentsData.length}`,
-      },
-    },
-  };
-
-  if (!lawyerData) {
-    return <div>No lawyer data found.</div>;
-  }
+  const COLORS = ['#0088FE', '#FFBB28', '#FF8042'];
 
   return (
-    <div>
+    <div style={{ padding: '24px' }}>
       <Title level={2}>Lawyer Dashboard</Title>
-      <Row gutter={16}>
+      
+      <Row gutter={[16, 16]}>
         <Col span={8}>
-          <Card title="Confirmed Appointments" bordered={false}>
-            <Title level={3}>{appointmentStatusData['Confirmed'] || 0}</Title>
+          <Card>
+            <Title level={4}>Appointment Status Statistics</Title>
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie
+                  data={appointmentData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {appointmentData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
           </Card>
         </Col>
+        
         <Col span={8}>
-          <Card title="Pending Appointments" bordered={false}>
-            <Title level={3}>{appointmentStatusData['Pending'] || 0}</Title>
-          </Card>
-        </Col>
-        <Col span={8}>
-          <Card title="Total Customers" bordered={false}>
-            <Title level={3}>{new Set(appointmentsData.map(a => a.clientId)).size}</Title>
-          </Card>
-        </Col>
-      </Row>
-      <Row gutter={16} style={{ marginTop: 24 }}>
-        <Col span={12}>
-          <Card title="Appointment Status Statistics" bordered={false}>
-            <Pie {...pieConfig} />
-          </Card>
-        </Col>
-        <Col span={12}>
-          <Card title="Personal Information" bordered={false}>
-            <Space direction="vertical" style={{ width: '100%' }}>
-              <p><strong>Name:</strong> {lawyerData.name}</p>
-              <p><strong>Specialty:</strong> {lawyerData.specialty}</p>
-              <p><strong>Experience:</strong> {lawyerData.experience}</p>
-              <p><strong>Status:</strong> {lawyerData.status}</p>
-            </Space>
+          <Card>
+            <Title level={4}>Personal Information</Title>
+            {personalInfo && (
+              <Space direction="vertical" style={{ width: '100%' }}>
+                <p><strong>Name:</strong> {personalInfo.name}</p>
+                <p><strong>Specialty:</strong> {personalInfo.specialty}</p>
+                <p><strong>Experience:</strong> {personalInfo.experience}</p>
+                <p><strong>Status:</strong> {personalInfo.status}</p>
+              </Space>
+            )}
           </Card>
         </Col>
       </Row>

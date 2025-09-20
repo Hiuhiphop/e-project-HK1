@@ -9,29 +9,33 @@ const LawyerProfile = () => {
   const loggedInUser = getLoggedInUser();
 
   useEffect(() => {
-    
+    console.log('LoggedInUser:', loggedInUser); // Debug
     const currentLawyer = mockLawyers.find(l => l.name === loggedInUser?.username);
+    console.log('Found Lawyer:', currentLawyer); // Debug
     if (currentLawyer) {
       setLawyer(currentLawyer);
       form.setFieldsValue(currentLawyer);
     } else {
       message.error('No lawyer data found for the logged-in user.');
+      setLawyer(null); // Đảm bảo không render form nếu không có dữ liệu
     }
   }, [loggedInUser, form]);
 
-  const onFinish = (values) => {
-    
-    console.log('Update lawyer profile:', values);
-    const updatedLawyers = mockLawyers.map(l =>
-      l.id === lawyer.id ? { ...l, ...values } : l
-    );
-    
-    setLawyer(updatedLawyers.find(l => l.id === lawyer.id));
-    message.success('Update lawyer profile successfully!');
+  const onFinish = async (values) => {
+    try {
+      const updatedLawyers = mockLawyers.map(l =>
+        l.id === lawyer.id ? { ...l, ...values } : l
+      );
+      setLawyer(updatedLawyers.find(l => l.id === lawyer.id));
+      message.success('Update lawyer profile successfully!');
+    } catch (error) {
+      console.error('Update error:', error); // Debug
+      message.error('Update failed!');
+    }
   };
 
   if (!lawyer) {
-    return <div>No lawyer data found.</div>;
+    return <div style={{ padding: '20px' }}>No lawyer data found. Please check login.</div>;
   }
 
   return (

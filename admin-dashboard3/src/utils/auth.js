@@ -1,13 +1,13 @@
 export const login = (username, password) => {
-  if (username === 'admin' && password === 'password') {
+  if (username === 'admin' && password === 'MatKhauMoi2025!') {
     localStorage.setItem('role', 'admin');
     localStorage.setItem('username', 'admin');
     return true;
   }
-  // Giả lập đăng nhập luật sư
-  if (username === 'lawyer_a' && password === 'password') {
+  
+  if (username === 'John Doe' && password === 'MatKhauMoi2025!') {
     localStorage.setItem('role', 'lawyer');
-    localStorage.setItem('username', 'Nguyễn Văn A');
+    localStorage.setItem('username', 'John Doe'); 
     return true;
   }
   return false;

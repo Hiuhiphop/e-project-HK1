@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Button, Input, Space, Modal, Tag, message } from 'antd';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Table, Button, Input, Space, Modal, Tag, message, Form, DatePicker, TimePicker } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { mockLawyers, mockAppointments } from '../utils/mockData';
 import { getLoggedInUser } from '../utils/auth';
@@ -9,26 +9,29 @@ const LawyerAppointments = () => {
   const [searchText, setSearchText] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const [isProposeVisible, setIsProposeVisible] = useState(false);
+  const [form] = Form.useForm();
   const loggedInUser = getLoggedInUser();
 
-  const fetchAppointments = () => {
+  const fetchAppointments = useCallback(() => {
     const currentLawyer = mockLawyers.find(l => l.name === loggedInUser?.username);
     if (currentLawyer) {
       const myAppointments = mockAppointments.filter(app => app.lawyerId === currentLawyer.id);
       setAppointments(myAppointments);
     }
-  };
+  }, [loggedInUser?.username]);
 
   useEffect(() => {
     fetchAppointments();
-  }, [loggedInUser]); 
+  }, [fetchAppointments]);
 
   const handleAction = (id, action) => {
     const updatedAppointments = appointments.map(app =>
       app.id === id ? { ...app, status: action === 'confirm' ? 'Confirmed' : 'Canceled' } : app
     );
     setAppointments(updatedAppointments);
-    message.success(`Successfully ${action === 'confirm' ? 'confirmed' : 'canceled'} the appointment!`);
+    message.success(`Đã ${action === 'confirm' ? 'xác nhận' : 'hủy bỏ'} cuộc hẹn!`);
+    fetchAppointments();
   };
 
   const showDetailModal = (appointment) => {
@@ -36,10 +39,16 @@ const LawyerAppointments = () => {
     setIsModalVisible(true);
   };
 
+  const handleProposeNewTime = (values) => {
+    const newDate = values.newDate.format('YYYY-MM-DD');
+    const newTime = values.newTime.format('HH:mm');
+    message.success(`Đã đề xuất đổi lịch: ${newDate} ${newTime}`);
+    setIsProposeVisible(false);
+  };
+
   const handleSearch = (value) => {
     setSearchText(value);
-    const myAppointments = mockAppointments.filter(app => app.lawyerId === mockLawyers.find(l => l.name === loggedInUser?.username).id);
-    const filtered = myAppointments.filter((appointment) =>
+    const filtered = mockAppointments.filter((appointment) =>
       appointment.client.toLowerCase().includes(value.toLowerCase())
     );
     setAppointments(filtered);
@@ -57,9 +66,14 @@ const LawyerAppointments = () => {
 
   const columns = [
     { title: 'ID', dataIndex: 'id' },
-    { title: ' Customer', dataIndex: 'client', sorter: (a, b) => a.client.localeCompare(b.client) },
+    { title: 'Lawyer', dataIndex: 'lawyer' },
+    { title: 'Client', dataIndex: 'client' },
     { title: 'Date', dataIndex: 'date' },
-    { title: 'Status', dataIndex: 'status', render: (status) => getStatusTag(status),
+    { title: 'Time', dataIndex: 'time' },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      render: getStatusTag,
       filters: [
         { text: 'Pending', value: 'Pending' },
         { text: 'Confirmed', value: 'Confirmed' },
@@ -95,19 +109,37 @@ const LawyerAppointments = () => {
         open={isModalVisible}
         onOk={() => setIsModalVisible(false)}
         onCancel={() => setIsModalVisible(false)}
-        footer={[<Button key="close" onClick={() => setIsModalVisible(false)}>Close</Button>]}
+        footer={[
+          <Button key="close" onClick={() => setIsModalVisible(false)}>Close</Button>,
+          <Button key="propose" onClick={() => setIsProposeVisible(true)}>Propose New Time</Button>,
+        ]}
       >
         {selectedAppointment && (
           <div>
             <p><strong>ID:</strong> {selectedAppointment.id}</p>
             <p><strong>Lawyer:</strong> {selectedAppointment.lawyer}</p>
-            <p><strong>Customer:</strong> {selectedAppointment.client}</p>
+            <p><strong>Client:</strong> {selectedAppointment.client}</p>
             <p><strong>Date:</strong> {selectedAppointment.date}</p>
             <p><strong>Time:</strong> {selectedAppointment.time}</p>
             <p><strong>Status:</strong> {selectedAppointment.status}</p>
-            <p><strong>Note:</strong> {selectedAppointment.note}</p>
+            <p><strong>Note:</strong> {selectedAppointment.note || 'N/A'}</p>
           </div>
         )}
+      </Modal>
+      <Modal
+        title="Propose New Time"
+        open={isProposeVisible}
+        onOk={() => form.submit()}
+        onCancel={() => setIsProposeVisible(false)}
+      >
+        <Form form={form} onFinish={handleProposeNewTime}>
+          <Form.Item name="newDate" label="New Date" rules={[{ required: true }]}>
+            <DatePicker />
+          </Form.Item>
+          <Form.Item name="newTime" label="New Time" rules={[{ required: true }]}>
+            <TimePicker format="HH:mm" />
+          </Form.Item>
+        </Form>
       </Modal>
     </div>
   );
