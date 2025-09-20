@@ -34,7 +34,7 @@ const LawyerAvailability = () => {
     setIsModalVisible(false);
   };
 
-  const dateCellRender = (value) => {
+  const cellRender = (value) => {
     const dateStr = value.format('YYYY-MM-DD');
     const slot = availability.find(a => a.date === dateStr);
     return slot ? (
@@ -52,7 +52,7 @@ const LawyerAvailability = () => {
   return (
     <div>
       <h2>Availability Management</h2>
-      <Calendar dateCellRender={dateCellRender} onSelect={onSelect} />
+      <Calendar cellRender={cellRender} onSelect={onSelect} />
       <Modal
         title={`Add Availability for ${selectedDate?.format('YYYY-MM-DD')}`}
         open={isModalVisible}

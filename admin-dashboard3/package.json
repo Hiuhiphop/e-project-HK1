@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 5174",
     "build": "vite build",
     "preview": "vite preview",
     "cypress:open": "cypress open"
@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/icons": "^6.0.2",
     "@ant-design/plots": "^2.6.4",
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "antd": "^5.27.3",
     "axios": "^1.12.2",
     "react": "^19.1.1",

@@ -1,7 +1,7 @@
 describe('Admin Dashboard E2E Tests', () => {
     beforeEach(() => {
       
-      cy.visit('http://localhost:5173/login');
+      cy.visit('http://localhost:5174/login');
     });
  
     it('should successfully log in as admin and navigate to lawyer management page', () => {

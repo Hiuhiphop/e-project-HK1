@@ -2,7 +2,7 @@
 describe('Admin Management E2E Tests', () => {
     beforeEach(() => {
         
-        cy.visit('http://localhost:5173/login');
+        cy.visit('http://localhost:5174/login');
         cy.get('input[placeholder="Username"]').type('admin');
         cy.get('input[placeholder="Password"]').type('password');
         cy.get('button[type="submit"]').click();
