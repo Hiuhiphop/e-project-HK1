@@ -17,20 +17,26 @@ const LawyerProfile = () => {
       form.setFieldsValue(currentLawyer);
     } else {
       message.error('No lawyer data found for the logged-in user.');
-      setLawyer(null); // Đảm bảo không render form nếu không có dữ liệu
+      setLawyer(null);
     }
   }, [loggedInUser, form]);
 
   const onFinish = async (values) => {
     try {
+      console.log('Form values:', values); // Debug
+      if (!lawyer || !lawyer.id) {
+        throw new Error('Lawyer ID not found');
+      }
       const updatedLawyers = mockLawyers.map(l =>
         l.id === lawyer.id ? { ...l, ...values } : l
       );
-      setLawyer(updatedLawyers.find(l => l.id === lawyer.id));
-      message.success('Update lawyer profile successfully!');
+      const updatedLawyer = updatedLawyers.find(l => l.id === lawyer.id);
+      console.log('Updated Lawyer:', updatedLawyer); // Debug
+      setLawyer(updatedLawyer);
+      message.success('Update lawyer profile successfully!', 10); // Hiển thị 10 giây
     } catch (error) {
-      console.error('Update error:', error); // Debug
-      message.error('Update failed!');
+      console.error('Update error:', error.message); // Debug lỗi
+      message.error('Update failed! Please try again.', 10); // Hiển thị 10 giây
     }
   };
 
@@ -41,7 +47,7 @@ const LawyerProfile = () => {
   return (
     <Card title="Update Lawyer Profile" style={{ width: '100%' }}>
       <Form
-        form={form}
+        form={form} // Đảm bảo có form={form}
         name="lawyer_profile"
         onFinish={onFinish}
         layout="vertical"
