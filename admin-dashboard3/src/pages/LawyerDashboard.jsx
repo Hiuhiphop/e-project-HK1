@@ -1,4 +1,4 @@
-// File: src/pages/LawyerDashboard.jsx
+
 
 import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Typography, Space } from 'antd';
@@ -13,8 +13,7 @@ const LawyerDashboard = () => {
   const [personalInfo, setPersonalInfo] = useState(null);
   const loggedInUser = getLoggedInUser();
 
-  // Logic đã được di chuyển vào bên trong useEffect
-  // và chỉ chạy khi username của user thay đổi
+  
   useEffect(() => {
     const currentLawyer = mockLawyers.find(l => l.name === loggedInUser?.username);
     
@@ -32,7 +31,7 @@ const LawyerDashboard = () => {
         { name: 'Cancelled', value: cancelledCount },
       ]);
     }
-  }, [loggedInUser?.username]); // Chỉ phụ thuộc vào username (một giá trị cố định)
+  }, [loggedInUser?.username]); 
 
   const COLORS = ['#0088FE', '#FFBB28', '#FF8042'];
 

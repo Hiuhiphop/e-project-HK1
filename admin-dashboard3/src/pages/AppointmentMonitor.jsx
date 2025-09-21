@@ -50,9 +50,9 @@ const AppointmentMonitor = () => {
  dataIndex: 'status',
  render: (status) => getStatusTag(status),
  filters: [
- { text: 'Pending', value: 'Chờ duyệt' },
- { text: 'Confirmed', value: 'Đã xác nhận' },
- { text: 'Canceled', value: 'Đã hủy' },
+ { text: 'Pending', value: 'Pending' },
+ { text: 'Confirmed', value: 'Confirmed' },
+ { text: 'Canceled', value: 'Canceled' },
  ],
 onFilter: (value, record) => record.status === value,
 },

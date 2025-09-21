@@ -30,7 +30,7 @@ const LawyerAppointments = () => {
       app.id === id ? { ...app, status: action === 'confirm' ? 'Confirmed' : 'Canceled' } : app
     );
     setAppointments(updatedAppointments);
-    message.success(`Đã ${action === 'confirm' ? 'xác nhận' : 'hủy bỏ'} cuộc hẹn!`);
+    message.success(`Successfully ${action === 'confirm' ? 'confirmed' : 'canceled'} the appointment!`);
     fetchAppointments();
   };
 
@@ -42,7 +42,7 @@ const LawyerAppointments = () => {
   const handleProposeNewTime = (values) => {
     const newDate = values.newDate.format('YYYY-MM-DD');
     const newTime = values.newTime.format('HH:mm');
-    message.success(`Đã đề xuất đổi lịch: ${newDate} ${newTime}`);
+    message.success(`Successfully proposed to change the appointment to: ${newDate} ${newTime}`);
     setIsProposeVisible(false);
   };
 

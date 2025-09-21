@@ -1,11 +1,11 @@
 export const login = (username, password) => {
-  if (username === 'admin' && password === 'MatKhauMoi2025!') {
+  if (username === 'admin' && password === 'password') {
     localStorage.setItem('role', 'admin');
     localStorage.setItem('username', 'admin');
     return true;
   }
   
-  if (username === 'John Doe' && password === 'MatKhauMoi2025!') {
+  if (username === 'John Doe' && password === 'password') {
     localStorage.setItem('role', 'lawyer');
     localStorage.setItem('username', 'John Doe'); 
     return true;
