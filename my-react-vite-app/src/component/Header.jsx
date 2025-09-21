@@ -21,10 +21,13 @@ export default function Header() {
     <header ref={headerRef} id="header-home" className="header">
       <div className="container">
         <nav className="navbar navbar-expand-lg navbar-primary">
-          <div className="logo" style={{cursor: "pointer"}}>
-            <a className="navbar-brand" onClick={() => {
-              navigate("/")
-            }}>
+          <div className="logo" style={{ cursor: "pointer" }}>
+            <a
+              className="navbar-brand"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
               <i className="fa-solid fa-scale-balanced"></i>
               <span> OnLaw</span>
             </a>
@@ -44,12 +47,12 @@ export default function Header() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center justify-content-end w100">
-              <li className="nav-item" style={{cursor: "pointer"}}>
+              <li className="nav-item" style={{ cursor: "pointer" }}>
                 <a
                   className="nav-link text-color1"
                   aria-current="page"
                   onClick={() => {
-                    navigate('/')
+                    navigate("/");
                   }}
                 >
                   Home
@@ -70,9 +73,20 @@ export default function Header() {
                   Contact
                 </a>
               </li>
-              <button className="button2" onClick={() => {
-                navigate("/login")
-              }} >Booking Lawyer</button>
+              <li>
+                <div class="search-box">
+                  <input type="text" />
+                  <span></span>
+                </div>
+              </li>
+              <button
+                className="button2"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Booking Lawyer
+              </button>
             </ul>
           </div>
         </nav>
