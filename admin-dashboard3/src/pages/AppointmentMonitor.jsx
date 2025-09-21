@@ -31,9 +31,9 @@ const AppointmentMonitor = () => {
 
  const getStatusTag = (status) => {
  let color = 'geekblue';
- if (status === 'Đã xác nhận') {
+ if (status === 'Confirmed') {
  color = 'green';
- } else if (status === 'Đã hủy') {
+ } else if (status === 'Canceled') {
  color = 'red';
  }
  return <Tag color={color}>{status}</Tag>;
