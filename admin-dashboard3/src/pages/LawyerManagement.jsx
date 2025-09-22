@@ -120,4 +120,4 @@ const LawyerManagement = () => {
   );
 };
 
-export default LawyerManagement;
+export default LawyerManagement;  

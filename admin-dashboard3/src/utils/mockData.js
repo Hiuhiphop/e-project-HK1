@@ -1,9 +1,16 @@
-// File: src/utils/mockData.js
+
+
+import dayjs from 'dayjs';
+
+
+const createDate = (daysToAdd) => dayjs().add(daysToAdd, 'day').format('YYYY-MM-DD');
 
 export const mockLawyers = [
-  { id: 1, name: 'John Doe', username: 'John Doe', specialty: 'Criminal', experience: 'Five years', status: 'Approved' },
-  { id: 2, name: 'Jane Smith', specialty: 'Civil', experience: 'Eight years', status: 'Approved' },
-  { id: 3, name: 'Peter Jones', specialty: 'Labor', experience: 'Three years', status: 'Pending' },
+  
+  { id: 1, name: 'John Doe', username: 'johndoe', specialty: 'Criminal', experience: 'Five years', status: 'Approved' },
+  { id: 2, name: 'Jane Smith', username: 'janesmith', specialty: 'Civil', experience: 'Eight years', status: 'Approved' },
+  
+  { id: 3, name: 'Peter Jones', username: 'peterj', specialty: 'Labor', experience: 'Three years', status: 'Pending' },
 ];
 
 export const mockClients = [
@@ -14,10 +21,11 @@ export const mockClients = [
 ];
 
 export const mockAppointments = [
-  { id: 1, lawyerId: 1, lawyer: 'John Doe', clientId: 1, client: 'Mike Johnson', status: 'Pending', date: '2025-09-20', time: '10:00 AM', note: 'Initial consultation' },
-  { id: 2, lawyerId: 2, lawyer: 'Jane Smith', clientId: 2, client: 'Emily Davis', status: 'Confirmed', date: '2025-09-21', time: '02:30 PM', note: 'Follow-up' },
-  { id: 3, lawyerId: 1, lawyer: 'John Doe', clientId: 3, client: 'Chris Evans', status: 'Cancelled', date: '2025-09-22', time: '09:00 AM', note: 'Rescheduled' },
-  { id: 4, lawyerId: 2, lawyer: 'Jane Smith', clientId: 4, client: 'Sarah Miller', status: 'Confirmed', date: '2025-09-23', time: '11:15 AM', note: 'New client' },
+  
+  { id: 1, lawyerId: 1, lawyer: 'John Doe', clientId: 1, client: 'Mike Johnson', status: 'Pending', date: createDate(-1), time: '10:00 AM', note: 'Initial consultation' },
+  { id: 2, lawyerId: 2, lawyer: 'Jane Smith', clientId: 2, client: 'Emily Davis', status: 'Confirmed', date: createDate(0), time: '02:30 PM', note: 'Follow-up' },
+  { id: 3, lawyerId: 1, lawyer: 'John Doe', clientId: 3, client: 'Chris Evans', status: 'Pending', date: createDate(1), time: '09:00 AM', note: 'Rescheduled' },
+  { id: 4, lawyerId: 2, lawyer: 'Jane Smith', clientId: 4, client: 'Sarah Miller', status: 'Confirmed', date: createDate(2), time: '11:15 AM', note: 'New client' },
 ];
 
 export const mockNotifications = [
