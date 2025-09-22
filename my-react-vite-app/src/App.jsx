@@ -1,10 +1,10 @@
 import { Routes, Route, Outlet } from "react-router-dom";
-import HomeTemplate from "./template/homeTemplate/homeTemplate";
+import HomeTemplate from "./template/homeTemplate/HomeTemplate";
 import Home from "./page/Home";
 import Login from "./page/Login";
-import Register from "./page/register";
-
-
+import Register from "./page/Register";
+import LawyerList from "./page/LawyerList";
+import LawyerDetail from "./page/LawyerDetail";
 
 export default function App() {
   return (
@@ -13,7 +13,8 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        
+        <Route path="/lawyerList" element={<LawyerList />} />
+        <Route path="/lawyerdetail" element={<LawyerDetail/>}/>
       </Route>
     </Routes>
   );
